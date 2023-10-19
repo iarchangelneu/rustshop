@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --unb: 'Unbounded', sans-serif;
+    --mon: 'Montserrat', sans-serif;
+}
+
+.collapse {
+    display: none;
+    transition: height 0.3s ease-in-out;
+    /* Добавляем анимацию для высоты */
+}
+
+.collapse.show {
+    display: block;
+}
+
+body {
+    overflow-x: hidden;
+    background: #151413;
+}
+
+body:after {
+    background-image: url(https://files.facepunch.com/garry/1b1011b1/test.png?1=);
+    content: " ";
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 500;
+    pointer-events: none;
+    opacity: .6;
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+}
+
+html {
+    scroll-behavior: smooth !important;
+
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.ql-toolbar.ql-snow {
+    border: 2px solid #000;
+}
+
+.swiper-button-disabled {
+    opacity: 0.4 !important;
+    transition: all .3s ease;
+}
+
+h1, h2, h3, h4, h5, h6, span, p, a, small, div, li {
+    font-variant-numeric: lining-nums proportional-nums !important;
+}
