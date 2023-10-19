@@ -55,15 +55,17 @@
         </div>
 
         <div class="transactions" v-if="activeTab == 1">
-            <div class="scrollik">
-                <!-- <div class="empty">
-                    <h1>Список операций будет доступен, когда Вы пополните или выведете средства с баланса</h1>
+            <div class="empty" v-if="transactions.length <= 0">
+                <h1 class="text-center">Список операций будет доступен, когда Вы пополните или выведете средства с баланса
+                </h1>
 
-                    <div class="buttons">
-                        <NuxtLink to="/catalog">Магазин</NuxtLink>
-                        <NuxtLink to="/sale">Продажа</NuxtLink>
-                    </div>
-                </div> -->
+                <div class="buttons">
+                    <NuxtLink to="/catalog">Магазин</NuxtLink>
+                    <NuxtLink to="/sale">Продажа</NuxtLink>
+                </div>
+            </div>
+            <div class="scrollik" v-else>
+
                 <div class="mobtrans">
                     <div class="mobbody">
                         <div class="mob__item" v-for="item in transactions" :key="item.id">
@@ -135,14 +137,15 @@
         </div>
 
         <div class="balance" v-if="activeTab == 2">
+            <div class="empty" v-if="balance.length <= 0">
+                <h1 class="text-center">Список операций будет доступен, когда Вы пополните или выведете средства с баланса
+                </h1>
+            </div>
+            <div class="scrollik" v-else>
 
-            <div class="scrollik">
-                <!-- <div class="empty">
-                    <h1>Список операций будет доступен, когда Вы пополните или выведете средства с баланса</h1>
-                </div> -->
                 <div class="mobtrans">
 
-                    <div class="mob__body" v-for="item in  .slice().reverse()" :key="item.id">
+                    <div class="mob__body" v-for="item in balance.slice().reverse()" :key="item.id">
                         <div class="paddingblya">
                             <div class="body__header">
                                 <small>{{ item.type_operation }}</small>
@@ -199,7 +202,7 @@ export default {
     data() {
         return {
             pathUrl: 'https://rustshop.kz',
-            activeTab: 0,
+            activeTab: 2,
             password: '',
             repeat_password: '',
             trade_link: '',
@@ -328,14 +331,14 @@ useSeoMeta({
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 700px;
+            height: 500px;
 
             h1 {
                 font-size: 24px;
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
-                font-family: var(--mon);
+                font-family: var(--unb);
                 text-transform: none;
                 color: #fff;
             }
@@ -537,14 +540,14 @@ useSeoMeta({
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 700px;
+            height: 500px;
 
             h1 {
                 font-size: 24px;
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
-                font-family: var(--mon);
+                font-family: var(--unb);
                 text-transform: none;
                 color: #fff;
                 margin: 0;
@@ -560,10 +563,10 @@ useSeoMeta({
                 margin-top: 50px;
 
                 a {
-                    border-radius: 10px;
-                    border: 0;
-                    background: var(--iris-100, #FF1D00);
-                    padding: 10px 3.802vw;
+                    border-radius: 7px;
+                    background: #75382E;
+                    box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.25);
+                    padding: 10px 3.125vw;
 
                     font-size: 20px;
                     font-style: normal;
@@ -579,9 +582,10 @@ useSeoMeta({
                     }
 
                     &:last-child {
-                        border: 0;
-                        background: #0500FF;
-
+                        border-radius: 7px;
+                        border: 1px solid #75382E;
+                        background: #212322;
+                        box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.25);
 
                     }
                 }

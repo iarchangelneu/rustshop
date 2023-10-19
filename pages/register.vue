@@ -34,7 +34,7 @@
                             <img @click="togglePasswordVisibility('repeat__password')" src="@/assets/img/eye.svg" alt="">
                         </div>
                     </div>
-
+                    <small>{{ error }}</small>
                     <div class="buttons">
                         <button @click="register">регистрация</button>
                         <button @click="loginSteam">Войти через steam</button>
@@ -58,6 +58,7 @@ export default {
             repeat__password: '',
             showPassword: false,
             pathUrl: 'https://rustshop.kz',
+            error: '',
         }
     },
     methods: {
@@ -98,7 +99,7 @@ export default {
                     }
                 })
                 .catch((error) => {
-                    this.error = error.response.data.detail
+                    this.error = error.response.data.username[0]
                     console.log(error.response);
                 });
 
@@ -139,6 +140,12 @@ useSeoMeta({
     display: flex;
     justify-content: center;
     align-items: center;
+
+    small {
+        color: red;
+        font-family: var(--mon);
+        font-size: 14px;
+    }
 
     .form {
         height: 100%;

@@ -17,48 +17,52 @@
                 <button @click="getSteam()" :disabled="!sales" ref="update">Обновить инвентарь</button>
             </div>
         </div>
-
-
-        <div class="catalog__items">
-            <div class="catalog__item" v-for="item in inventory.results" :key="item.id" v-if="sales">
-                <!-- <span class="disc">-10%</span> -->
-                <img :src="item.img" class="main__img" alt="">
-
-                <h2>{{ item.name }}</h2>
-
-                <div class="price">
-                    <div class="out">
-                        <div class="sitee" @click="openModal(item.id)">
-                            <img src="@/assets/img/onsite.svg" alt="">
-                            <img src="@/assets/img/banner1.svg" alt="" class="banner1">
-                        </div>
-                    </div>
-                    <span>{{ item.price.toFixed(1).toLocaleString() }} ₸</span>
-                </div>
-            </div>
-            <div class="catalog__item" v-for="item in inventory" :key="item.id" v-if="!sales">
-                <!-- <span class="disc">-10%</span> -->
-                <img :src="item.img" class="main__img" alt="">
-
-                <h2>{{ item.name }}</h2>
-
-                <div class="price">
-                    <div class="out">
-                        <div class="sitee" @click="openModal2(item.id)">
-                            <img src="@/assets/img/onsite.svg" alt="">
-                            <img src="@/assets/img/banner1.svg" alt="" class="banner1">
-                        </div>
-                        <div class="steamee" @click="openSteam2(item.id)">
-                            <img src="@/assets/img/insteam.svg" alt="">
-                            <img src="@/assets/img/banner2.svg" alt="" class="banner2">
-                        </div>
-                    </div>
-                    <span>{{ item.price.toFixed(1).toLocaleString() }} ₸</span>
-                </div>
-            </div>
+        <div class="empty" v-if="nado.length <= 0">
+            <img src="@/assets/img/empty.png" class="img-fluid" alt="">
+            <h1>инвентарь пока пуст</h1>
         </div>
-        <div class="text-right" v-if="sales">
-            <button ref="showmore" @click="loadMoreProducts()">показать еще</button>
+        <div v-else>
+            <div class="catalog__items">
+                <div class="catalog__item" v-for="item in inventory.results" :key="item.id" v-if="sales">
+                    <!-- <span class="disc">-10%</span> -->
+                    <img :src="item.img" class="main__img" alt="">
+
+                    <h2>{{ item.name }}</h2>
+
+                    <div class="price">
+                        <div class="out">
+                            <div class="sitee" @click="openModal(item.id)">
+                                <img src="@/assets/img/onsite.svg" alt="">
+                                <img src="@/assets/img/banner1.svg" alt="" class="banner1">
+                            </div>
+                        </div>
+                        <span>{{ item.price.toFixed(1).toLocaleString() }} ₸</span>
+                    </div>
+                </div>
+                <div class="catalog__item" v-for="item in inventory" :key="item.id" v-if="!sales">
+                    <!-- <span class="disc">-10%</span> -->
+                    <img :src="item.img" class="main__img" alt="">
+
+                    <h2>{{ item.name }}</h2>
+
+                    <div class="price">
+                        <div class="out">
+                            <div class="sitee" @click="openModal2(item.id)">
+                                <img src="@/assets/img/onsite.svg" alt="">
+                                <img src="@/assets/img/banner1.svg" alt="" class="banner1">
+                            </div>
+                            <div class="steamee" @click="openSteam2(item.id)">
+                                <img src="@/assets/img/insteam.svg" alt="">
+                                <img src="@/assets/img/banner2.svg" alt="" class="banner2">
+                            </div>
+                        </div>
+                        <span>{{ item.price.toFixed(1).toLocaleString() }} ₸</span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right" v-if="sales">
+                <button ref="showmore" @click="loadMoreProducts()">показать еще</button>
+            </div>
         </div>
     </div>
     <ModalFirst :product="modal"></ModalFirst>
@@ -80,6 +84,8 @@ export default {
             modal: {},
             sales: true,
             search: '',
+            email: '',
+            nado: [],
         }
     },
     methods: {
@@ -129,6 +135,7 @@ export default {
                 .then((res) => {
                     console.log(res);
                     this.inventory = res.data.transactions_item.map(item => item.item);
+                    this.nado = res.data.transactions_item.map(item => item.item);
                 });
         },
         getSteam() {
@@ -185,6 +192,7 @@ export default {
                 .then((res) => {
                     console.log(res)
                     this.inventory = res.data
+                    this.nado = res.data.results
                 })
         },
         toggleFilter() {
@@ -219,7 +227,6 @@ export default {
     },
     mounted() {
         const accType = localStorage.getItem('accountType')
-
         if (accType == 'steam' || accType == 'email') {
             this.getInventory()
         }
@@ -258,6 +265,32 @@ useSeoMeta({
         text-transform: uppercase;
         font-family: var(--unb);
         color: #fff;
+    }
+
+    .empty {
+        margin-top: 60px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+
+        h1 {
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 130%;
+            /* 26px */
+            text-transform: uppercase;
+            font-family: var(--mon);
+            color: #fff;
+            text-align: center;
+
+            @media (max-width: 1024px) {
+                font-size: 16px;
+            }
+        }
     }
 
     @media (max-width: 1600px) {

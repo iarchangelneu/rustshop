@@ -682,7 +682,7 @@ header {
                     font-style: normal;
                     font-weight: 400;
                     line-height: normal;
-                    font-family: var(--kha);
+                    font-family: var(--mon);
                     margin: 0;
                     color: #fff;
                     transition: all .3s ease;
